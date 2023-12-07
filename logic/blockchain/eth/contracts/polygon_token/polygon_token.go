@@ -30,7 +30,7 @@ var (
 
 // PolygonTokenMetaData contains all meta data concerning the PolygonToken contract.
 var PolygonTokenMetaData = &bind.MetaData{
-	ABI: "[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"requestId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"requester\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"tokenOwnerAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"callbackAddr\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes4\",\"name\":\"callbackFunctionSignature\",\"type\":\"bytes4\"}],\"name\":\"PolygonTokenBalanceRequest\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"requestId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"balance\",\"type\":\"uint256\"}],\"name\":\"handleCallback\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"tokenOwnerAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"balanceThreshold\",\"type\":\"uint256\"}],\"name\":\"requestAsyncCall\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"requestId\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"requestIdToRequest\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"requester\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"tokenOwnerAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"balanceThreshold\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"isRequestCompleted\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"exists\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"results\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
+	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"requestId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"requester\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"tokenOwnerAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"callbackAddr\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes4\",\"name\":\"callbackFunctionSignature\",\"type\":\"bytes4\"}],\"name\":\"PolygonTokenBalanceRequest\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"requestId\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"requester\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"tokenOwnerAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"callbackAddr\",\"type\":\"address\"},{\"internalType\":\"bytes4\",\"name\":\"callbackFunctionSignature\",\"type\":\"bytes4\"}],\"name\":\"sendRequest\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
 }
 
 // PolygonTokenABI is the input ABI used to generate the binding from.
@@ -179,142 +179,25 @@ func (_PolygonToken *PolygonTokenTransactorRaw) Transact(opts *bind.TransactOpts
 	return _PolygonToken.Contract.contract.Transact(opts, method, params...)
 }
 
-// RequestIdToRequest is a free data retrieval call binding the contract method 0x01e5bbb9.
+// SendRequest is a paid mutator transaction binding the contract method 0x3114f43a.
 //
-// Solidity: function requestIdToRequest(bytes32 ) view returns(address requester, address tokenAddress, address tokenOwnerAddress, uint256 balanceThreshold, bool isRequestCompleted, bool exists)
-func (_PolygonToken *PolygonTokenCaller) RequestIdToRequest(opts *bind.CallOpts, arg0 [32]byte) (struct {
-	Requester          common.Address
-	TokenAddress       common.Address
-	TokenOwnerAddress  common.Address
-	BalanceThreshold   *big.Int
-	IsRequestCompleted bool
-	Exists             bool
-}, error) {
-	var out []interface{}
-	err := _PolygonToken.contract.Call(opts, &out, "requestIdToRequest", arg0)
-
-	outstruct := new(struct {
-		Requester          common.Address
-		TokenAddress       common.Address
-		TokenOwnerAddress  common.Address
-		BalanceThreshold   *big.Int
-		IsRequestCompleted bool
-		Exists             bool
-	})
-	if err != nil {
-		return *outstruct, err
-	}
-
-	outstruct.Requester = *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
-	outstruct.TokenAddress = *abi.ConvertType(out[1], new(common.Address)).(*common.Address)
-	outstruct.TokenOwnerAddress = *abi.ConvertType(out[2], new(common.Address)).(*common.Address)
-	outstruct.BalanceThreshold = *abi.ConvertType(out[3], new(*big.Int)).(**big.Int)
-	outstruct.IsRequestCompleted = *abi.ConvertType(out[4], new(bool)).(*bool)
-	outstruct.Exists = *abi.ConvertType(out[5], new(bool)).(*bool)
-
-	return *outstruct, err
-
+// Solidity: function sendRequest(bytes32 requestId, address requester, address tokenAddress, address tokenOwnerAddress, address callbackAddr, bytes4 callbackFunctionSignature) returns()
+func (_PolygonToken *PolygonTokenTransactor) SendRequest(opts *bind.TransactOpts, requestId [32]byte, requester common.Address, tokenAddress common.Address, tokenOwnerAddress common.Address, callbackAddr common.Address, callbackFunctionSignature [4]byte) (*types.Transaction, error) {
+	return _PolygonToken.contract.Transact(opts, "sendRequest", requestId, requester, tokenAddress, tokenOwnerAddress, callbackAddr, callbackFunctionSignature)
 }
 
-// RequestIdToRequest is a free data retrieval call binding the contract method 0x01e5bbb9.
+// SendRequest is a paid mutator transaction binding the contract method 0x3114f43a.
 //
-// Solidity: function requestIdToRequest(bytes32 ) view returns(address requester, address tokenAddress, address tokenOwnerAddress, uint256 balanceThreshold, bool isRequestCompleted, bool exists)
-func (_PolygonToken *PolygonTokenSession) RequestIdToRequest(arg0 [32]byte) (struct {
-	Requester          common.Address
-	TokenAddress       common.Address
-	TokenOwnerAddress  common.Address
-	BalanceThreshold   *big.Int
-	IsRequestCompleted bool
-	Exists             bool
-}, error) {
-	return _PolygonToken.Contract.RequestIdToRequest(&_PolygonToken.CallOpts, arg0)
+// Solidity: function sendRequest(bytes32 requestId, address requester, address tokenAddress, address tokenOwnerAddress, address callbackAddr, bytes4 callbackFunctionSignature) returns()
+func (_PolygonToken *PolygonTokenSession) SendRequest(requestId [32]byte, requester common.Address, tokenAddress common.Address, tokenOwnerAddress common.Address, callbackAddr common.Address, callbackFunctionSignature [4]byte) (*types.Transaction, error) {
+	return _PolygonToken.Contract.SendRequest(&_PolygonToken.TransactOpts, requestId, requester, tokenAddress, tokenOwnerAddress, callbackAddr, callbackFunctionSignature)
 }
 
-// RequestIdToRequest is a free data retrieval call binding the contract method 0x01e5bbb9.
+// SendRequest is a paid mutator transaction binding the contract method 0x3114f43a.
 //
-// Solidity: function requestIdToRequest(bytes32 ) view returns(address requester, address tokenAddress, address tokenOwnerAddress, uint256 balanceThreshold, bool isRequestCompleted, bool exists)
-func (_PolygonToken *PolygonTokenCallerSession) RequestIdToRequest(arg0 [32]byte) (struct {
-	Requester          common.Address
-	TokenAddress       common.Address
-	TokenOwnerAddress  common.Address
-	BalanceThreshold   *big.Int
-	IsRequestCompleted bool
-	Exists             bool
-}, error) {
-	return _PolygonToken.Contract.RequestIdToRequest(&_PolygonToken.CallOpts, arg0)
-}
-
-// Results is a free data retrieval call binding the contract method 0x4c6b25b1.
-//
-// Solidity: function results(bytes32 ) view returns(string)
-func (_PolygonToken *PolygonTokenCaller) Results(opts *bind.CallOpts, arg0 [32]byte) (string, error) {
-	var out []interface{}
-	err := _PolygonToken.contract.Call(opts, &out, "results", arg0)
-
-	if err != nil {
-		return *new(string), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(string)).(*string)
-
-	return out0, err
-
-}
-
-// Results is a free data retrieval call binding the contract method 0x4c6b25b1.
-//
-// Solidity: function results(bytes32 ) view returns(string)
-func (_PolygonToken *PolygonTokenSession) Results(arg0 [32]byte) (string, error) {
-	return _PolygonToken.Contract.Results(&_PolygonToken.CallOpts, arg0)
-}
-
-// Results is a free data retrieval call binding the contract method 0x4c6b25b1.
-//
-// Solidity: function results(bytes32 ) view returns(string)
-func (_PolygonToken *PolygonTokenCallerSession) Results(arg0 [32]byte) (string, error) {
-	return _PolygonToken.Contract.Results(&_PolygonToken.CallOpts, arg0)
-}
-
-// HandleCallback is a paid mutator transaction binding the contract method 0x3d0aa6e5.
-//
-// Solidity: function handleCallback(bytes32 requestId, uint256 balance) returns()
-func (_PolygonToken *PolygonTokenTransactor) HandleCallback(opts *bind.TransactOpts, requestId [32]byte, balance *big.Int) (*types.Transaction, error) {
-	return _PolygonToken.contract.Transact(opts, "handleCallback", requestId, balance)
-}
-
-// HandleCallback is a paid mutator transaction binding the contract method 0x3d0aa6e5.
-//
-// Solidity: function handleCallback(bytes32 requestId, uint256 balance) returns()
-func (_PolygonToken *PolygonTokenSession) HandleCallback(requestId [32]byte, balance *big.Int) (*types.Transaction, error) {
-	return _PolygonToken.Contract.HandleCallback(&_PolygonToken.TransactOpts, requestId, balance)
-}
-
-// HandleCallback is a paid mutator transaction binding the contract method 0x3d0aa6e5.
-//
-// Solidity: function handleCallback(bytes32 requestId, uint256 balance) returns()
-func (_PolygonToken *PolygonTokenTransactorSession) HandleCallback(requestId [32]byte, balance *big.Int) (*types.Transaction, error) {
-	return _PolygonToken.Contract.HandleCallback(&_PolygonToken.TransactOpts, requestId, balance)
-}
-
-// RequestAsyncCall is a paid mutator transaction binding the contract method 0x738fd8c5.
-//
-// Solidity: function requestAsyncCall(address tokenAddress, address tokenOwnerAddress, uint256 balanceThreshold) returns(bytes32 requestId)
-func (_PolygonToken *PolygonTokenTransactor) RequestAsyncCall(opts *bind.TransactOpts, tokenAddress common.Address, tokenOwnerAddress common.Address, balanceThreshold *big.Int) (*types.Transaction, error) {
-	return _PolygonToken.contract.Transact(opts, "requestAsyncCall", tokenAddress, tokenOwnerAddress, balanceThreshold)
-}
-
-// RequestAsyncCall is a paid mutator transaction binding the contract method 0x738fd8c5.
-//
-// Solidity: function requestAsyncCall(address tokenAddress, address tokenOwnerAddress, uint256 balanceThreshold) returns(bytes32 requestId)
-func (_PolygonToken *PolygonTokenSession) RequestAsyncCall(tokenAddress common.Address, tokenOwnerAddress common.Address, balanceThreshold *big.Int) (*types.Transaction, error) {
-	return _PolygonToken.Contract.RequestAsyncCall(&_PolygonToken.TransactOpts, tokenAddress, tokenOwnerAddress, balanceThreshold)
-}
-
-// RequestAsyncCall is a paid mutator transaction binding the contract method 0x738fd8c5.
-//
-// Solidity: function requestAsyncCall(address tokenAddress, address tokenOwnerAddress, uint256 balanceThreshold) returns(bytes32 requestId)
-func (_PolygonToken *PolygonTokenTransactorSession) RequestAsyncCall(tokenAddress common.Address, tokenOwnerAddress common.Address, balanceThreshold *big.Int) (*types.Transaction, error) {
-	return _PolygonToken.Contract.RequestAsyncCall(&_PolygonToken.TransactOpts, tokenAddress, tokenOwnerAddress, balanceThreshold)
+// Solidity: function sendRequest(bytes32 requestId, address requester, address tokenAddress, address tokenOwnerAddress, address callbackAddr, bytes4 callbackFunctionSignature) returns()
+func (_PolygonToken *PolygonTokenTransactorSession) SendRequest(requestId [32]byte, requester common.Address, tokenAddress common.Address, tokenOwnerAddress common.Address, callbackAddr common.Address, callbackFunctionSignature [4]byte) (*types.Transaction, error) {
+	return _PolygonToken.Contract.SendRequest(&_PolygonToken.TransactOpts, requestId, requester, tokenAddress, tokenOwnerAddress, callbackAddr, callbackFunctionSignature)
 }
 
 // PolygonTokenPolygonTokenBalanceRequestIterator is returned from FilterPolygonTokenBalanceRequest and is used to iterate over the raw logs and unpacked data for PolygonTokenBalanceRequest events raised by the PolygonToken contract.

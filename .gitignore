@@ -22,3 +22,4 @@ go.work
 /.idea
 config.yaml
 .DS_Store
+/polygon-token-oracle-backend
