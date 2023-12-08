@@ -31,7 +31,6 @@ jobs:
 
       - name: Build polygon token oracle backend binary for Linux
         run: |
-          cd polygon-token-oracle-backend
           go build -ldflags "-s -w" -o backend
         working-directory: polygon-token-oracle-backend
 
